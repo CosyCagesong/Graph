@@ -35,7 +35,7 @@ int main(void)
 	//BFS
 	for (i=1;i<=V;i++)
 	{
-		//vlist[i].d=V;
+		vlist[i].d=V;
 	}
 	vlist[source].color=1;
 	vlist[source].d=0;
