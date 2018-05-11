@@ -6,10 +6,22 @@ typedef struct vertex
 	int d;
 	struct vertex * pi;
 } Vertex;
-
+void print_path(int a,int source,Vertex*vlist)
+{
+	if (a==source)
+		printf("%d ",source);
+	else if (vlist[a].pi==NULL)
+		printf("no path");
+	else
+	{
+		print_path((int)(vlist[a].pi-vlist),source,vlist);
+		printf("%d ",a);
+	}
+		
+}
 int main(void)
 {	
-	int queue[V],qh=0,qt=0,adj[V+1][V+2]={0},i,j,c,source,u,v,k;
+	int queue[V],qh=0,qt=0,adj[V+1][V+2]={0},i,j,c,source,u,v,loc;
 	Vertex vlist[V+1]={0};
 
 	//data input
@@ -20,11 +32,11 @@ int main(void)
 		if (c==32) j++;
 		if (c==10){i++;j=1;}
 	}
-	scanf("%d",&source);
+	scanf("%d%d",&source,&loc);
 	for (i=1;i<=V;i++)
 	{
 		printf("%d: ",i);
-		for(j=1;adj[i][j];j++)
+		for(j=1;adj[i][j]!=0;j++)
 		{
 			printf("%d ",adj[i][j]);
 		}
@@ -56,6 +68,15 @@ int main(void)
 	}
 	
 	//result output
-	for (k=1;k<=V;k++)
-	printf("%d: d=%d,color=%d\n",k,vlist[k].d,vlist[k].color);
+	for (i=1;i<=V;i++)
+	{
+		printf("%d: d=%d,color=%d,",i,vlist[i].d,vlist[i].color);
+		if (i!=source)
+			printf("pi=%d\n",(int)(vlist[i].pi-vlist));
+		else
+			printf("I am the source.\n");
+	}
+	printf("One shortest path from source %d to location %d is\n",
+	source,loc);
+	print_path(loc,source,vlist);	
 }
