@@ -25,12 +25,14 @@ int main(void)
 	Vertex vlist[V+1]={0};
 
 	//data input
-	for(i=1,j=1;i<=V;)
+	for(i=1;i<=V;i++)
 	{
-		scanf("%d",adj[i]+j);
-		c=getchar();
-		if (c==32) j++;
-		if (c==10){i++;j=1;}
+		j=1;
+		while((c=getchar())!=10)
+		{
+			ungetc(c,stdin);
+			scanf("%d",adj[i]+j++);
+		}
 	}
 	scanf("%d%d",&source,&loc);
 	for (i=1;i<=V;i++)
